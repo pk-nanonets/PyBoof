@@ -51,8 +51,8 @@ def init_pyboof(java_port: int = 25333, python_port: int = 25334, size_mb: int =
         print("Closing previously open gateway", file=sys.stderr)
         shutdown_jvm()
 
-    pbg.gateway = JavaGateway(gateway_parameters=GatewayParameters(port=java_port, auto_field=True),
-                              callback_server_parameters=CallbackServerParameters(port=python_port,
+    pbg.gateway = JavaGateway(gateway_parameters=GatewayParameters(address='0.0.0.0',port=java_port, auto_field=True),
+                              callback_server_parameters=CallbackServerParameters(address='0.0.0.0',port=python_port,
                                                                                   daemonize=True))
 
     # print("gateway={}".format(id(pbg.gateway)))
