@@ -17,6 +17,10 @@
  */
 
 package pyboof;
+package py4j;
+
+import java.net.InetAddress;
+
 
 import boofcv.abst.feature.detdesc.DetectDescribePoint;
 import boofcv.concurrency.BoofConcurrency;
@@ -55,10 +59,14 @@ public class PyBoofEntryPoint {
     }
 
     public static void main(String[] args) {
-        int port = 25333;
-        if (args.length > 0)
-           port = Integer.parseInt(args[0]);
-        GatewayServer gatewayServer = new GatewayServer(new PyBoofEntryPoint(), port);
+        
+
+        GatewayServer gatewayServer = new GatewayServer.GatewayServerBuilder()
+                    .javaPort(25333)
+                    .javaAddress(InetAddress.getByName("0.0.0.0"))
+                    .callbackClient(25334, InetAddress.getByName("0.0.0.0"))
+                    .build();
+
         gatewayServer.start();
     }
 
